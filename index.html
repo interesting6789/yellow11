@@ -1,722 +1,406 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Green Network - Protect Earth</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        :root {
-            --primary: #2e7d32;
-            --secondary: #4caf50;
-            --accent: #8bc34a;
-            --light: #e8f5e9;
-            --dark: #1b5e20;
-            --text: #333333;
-            --white: #ffffff;
-        }
-
-        body {
-            background-color: var(--light);
-            color: var(--text);
-            line-height: 1.6;
-        }
-
-        header {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: var(--white);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.8rem;
-            font-weight: 700;
-        }
-
-        .logo i {
-            font-size: 2rem;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-
-        nav ul li {
-            margin-left: 2rem;
-        }
-
-        nav ul li a {
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            padding: 0.5rem 0;
-            position: relative;
-        }
-
-        nav ul li a:hover {
-            color: var(--accent);
-        }
-
-        nav ul li a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--accent);
-            transition: width 0.3s ease;
-        }
-
-        nav ul li a:hover::after {
-            width: 100%;
-        }
-
-        .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80');
-            background-size: cover;
-            background-position: center;
-            height: 80vh;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            color: var(--white);
-        }
-
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-        }
-
-        .btn {
-            display: inline-block;
-            background-color: var(--accent);
-            color: var(--white);
-            padding: 0.8rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn:hover {
-            background-color: var(--primary);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        section {
-            padding: 5rem 0;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background-color: var(--accent);
-            border-radius: 2px;
-        }
-
-        .section-title p {
-            color: var(--text);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .about-img {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .about-img img {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 0.5s ease;
-        }
-
-        .about-img:hover img {
-            transform: scale(1.05);
-        }
-
-        .about-text h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: var(--dark);
-        }
-
-        .about-text p {
-            margin-bottom: 1.5rem;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 2rem 1rem;
-            background-color: var(--white);
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .stat-item:hover {
-            transform: translateY(-10px);
-        }
-
-        .stat-item i {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .stat-item h3 {
-            font-size: 2.5rem;
-            color: var(--dark);
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-item p {
-            color: var(--text);
-        }
-
-        .initiatives {
-            background-color: var(--white);
-        }
-
-        .initiatives-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-        }
-
-        .initiative-card {
-            background-color: var(--light);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .initiative-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .initiative-img {
-            height: 200px;
-            overflow: hidden;
-        }
-
-        .initiative-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .initiative-card:hover .initiative-img img {
-            transform: scale(1.1);
-        }
-
-        .initiative-content {
-            padding: 1.5rem;
-        }
-
-        .initiative-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--dark);
-        }
-
-        .initiative-content p {
-            margin-bottom: 1.5rem;
-        }
-
-        .cta {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: var(--white);
-            text-align: center;
-            padding: 5rem 0;
-        }
-
-        .cta h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .cta p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta .btn {
-            background-color: var(--white);
-            color: var(--primary);
-        }
-
-        .cta .btn:hover {
-            background-color: var(--accent);
-            color: var(--white);
-        }
-
-        footer {
-            background-color: var(--dark);
-            color: var(--white);
-            padding: 3rem 0 1rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-column h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 2px;
-            background-color: var(--accent);
-        }
-
-        .footer-column p {
-            margin-bottom: 1rem;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-links li a {
-            color: var(--light);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .footer-links li a:hover {
-            color: var(--accent);
-            padding-left: 5px;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: var(--white);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            background-color: var(--accent);
-            transform: translateY(-5px);
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .mobile-menu {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        @media (max-width: 992px) {
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .initiatives-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .footer-content {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            nav ul {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: var(--primary);
-                flex-direction: column;
-                padding: 1rem 0;
-                text-align: center;
-                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-            }
-            
-            nav ul.active {
-                display: flex;
-            }
-            
-            nav ul li {
-                margin: 0;
-                padding: 0.8rem 0;
-            }
-            
-            .mobile-menu {
-                display: block;
-            }
-            
-            .initiatives-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .stats {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Animation for stats counter */
-        .counter {
-            transition: all 0.5s ease;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>关爱动物 · 保护生命</title>
+  <meta name="description" content="一起关爱动物，拒绝虐待，支持收养与救助，做有温度的人。" />
+  <style>
+    /* 重置与基础 */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html,body { height: 100%; font-family: "Helvetica Neue", Arial, sans-serif; color:#222; line-height:1.5; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* 布局 */
+    header {
+      background: linear-gradient(90deg, rgba(0,128,96,0.95), rgba(0,160,128,0.95));
+      color: white;
+      padding: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+
+    nav { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .brand { display:flex; align-items:center; gap:12px; font-weight:700; }
+    .brand svg { width:36px; height:36px; }
+    .nav-links { display:flex; gap:12px; align-items:center; }
+    .nav-links a { padding:8px 12px; border-radius:6px; transition:background .15s; }
+    .nav-links a:hover { background: rgba(255,255,255,0.12); }
+
+    /* Hero */
+    .hero {
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:20px;
+      align-items:center;
+      padding: 36px 0;
+      color: #fff;
+    }
+    .hero-inner { display:flex; gap:24px; flex-direction:column; }
+    .hero h1 { font-size:clamp(1.6rem, 3.2vw, 2.6rem); margin-bottom:8px; }
+    .hero p { font-size:1.05rem; opacity:0.95; }
+
+    .cta-row { display:flex; gap:12px; flex-wrap:wrap; margin-top:12px; }
+    .btn {
+      background: white; color: #00664f; border: none; padding:10px 16px; border-radius:8px;
+      font-weight:600; cursor:pointer;
+    }
+    .btn.secondary {
+      background: transparent; color: white; border: 1px solid rgba(255,255,255,0.28);
+    }
+
+    .hero-media {
+      border-radius:12px; overflow:hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+      max-height: 360px;
+    }
+    .hero-media img { width:100%; height:100%; object-fit:cover; display:block; }
+
+    /* 三列卡片 */
+    .grid {
+      display:grid;
+      grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+      gap:18px;
+      margin-top:28px;
+    }
+    .card {
+      background: white;
+      padding:16px;
+      border-radius:12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    }
+    .card h3 { margin-bottom:6px; font-size:1.05rem; }
+    .card p { font-size:0.95rem; color:#444; margin-bottom:10px; }
+
+    /* 号召区 */
+    .cta-banner {
+      margin-top:28px;
+      padding:20px;
+      border-radius:12px;
+      background: linear-gradient(90deg,#f8fff6,#e8fff3);
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+    }
+    .stats { display:flex; gap:16px; align-items:center; flex-wrap:wrap; }
+    .stat { font-weight:700; color:#0b6b50; }
+
+    /* 关于和资源 */
+    section { margin-top:24px; }
+    footer { margin-top:36px; padding:18px 0; text-align:center; color:#666; font-size:0.95rem; }
+
+    /* modal */
+    .modal-backdrop {
+      position:fixed; inset:0; display:none; align-items:center; justify-content:center;
+      background: rgba(0,0,0,0.5); z-index:50;
+    }
+    .modal {
+      background:white; width: 92%; max-width:560px; border-radius:12px; padding:18px;
+      box-shadow:0 12px 36px rgba(0,0,0,0.28);
+    }
+    .modal-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+    .close-btn { background:transparent; border:none; font-size:1.2rem; cursor:pointer; }
+
+    /* 响应式 */
+    @media(min-width:900px){
+      .hero { grid-template-columns: 1fr 460px; }
+      .hero-inner { align-self:center; }
+      .hero-media { max-height:420px; }
+    }
+  </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container nav-container">
-            <div class="logo">
-                <i class="fas fa-seedling"></i>
-                <span>Green Network</span>
-            </div>
-            <nav>
-                <div class="mobile-menu">
-                    <i class="fas fa-bars"></i>
-                </div>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#initiatives">Initiatives</a></li>
-                    <li><a href="#get-involved">Get Involved</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
+  <header role="banner">
+    <div class="container">
+      <nav aria-label="主导航">
+        <div class="brand">
+          <!-- 简单的爱心+爪印图标 -->
+          <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+            <defs></defs>
+            <path fill="#fff" d="M32 56s-20-12.8-26-20a12 12 0 0116-17.6L32 22l10-3.6A12 12 0 0158 36c-6 7.2-26 20-26 20z"/>
+            <path fill="#06a37f" d="M18 16a4 4 0 11-8 0 4 4 0 018 0zM30 12a3.5 3.5 0 11-7 0 3.5 3.5 0 017 0zM46 18a4 4 0 11-8 0 4 4 0 018 0z"/>
+          </svg>
+          关爱动物协会
         </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container hero-content">
-            <h1>Protect Our Planet, Preserve Our Future</h1>
-            <p>Join the global movement to create a sustainable world through conservation, education, and community action.</p>
-            <a href="#get-involved" class="btn">Join Our Network</a>
+        <div class="nav-links" role="navigation">
+          <a href="#why">为什么重要</a>
+          <a href="#how">如何参与</a>
+          <a href="#adopt">收养与救助</a>
+          <a href="#contact">联系我们</a>
         </div>
-    </section>
+      </nav>
+    </div>
+  </header>
 
-    <!-- About Section -->
-    <section id="about">
-        <div class="container">
-            <div class="section-title">
-                <h2>About Green Network</h2>
-                <p>We are a global community dedicated to environmental protection and sustainable development.</p>
+  <main>
+    <div class="container">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-inner">
+          <h1 id="hero-title">守护每一个生命，从尊重与关爱开始</h1>
+          <p>动物也是地球上的生命伙伴。了解、尊重、救助与收养，是我们对弱小生命最温柔的选择。</p>
+          <div class="cta-row">
+            <button class="btn" id="btn-adopt">查看待领养</button>
+            <button class="btn secondary" id="btn-donate">我要捐助</button>
+            <a class="btn secondary" href="#how">如何参与</a>
+          </div>
+
+          <div class="grid" style="margin-top:16px;">
+            <div class="card" aria-hidden="false">
+              <h3>教育与倡导</h3>
+              <p>普及动物保护知识，反对虐待与非法交易，推动友好共生的社会风气。</p>
             </div>
-            <div class="about-content">
-                <div class="about-img">
-                    <img src="https://images.unsplash.com/photo-1507591064344-4c6ce005b128?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Team planting trees">
-                </div>
-                <div class="about-text">
-                    <h3>Our Mission</h3>
-                    <p>Green Network is committed to creating a sustainable future by protecting natural ecosystems, promoting renewable energy, and empowering communities to take environmental action.</p>
-                    <p>Founded in 2010, we've grown from a small grassroots organization to an international network with over 50,000 members across 120 countries.</p>
-                    <p>Our approach combines scientific research, community engagement, and policy advocacy to address the most pressing environmental challenges of our time.</p>
-                    <a href="#" class="btn">Learn More</a>
-                </div>
+            <div class="card">
+              <h3>救助与医疗</h3>
+              <p>组织救助受伤、流浪动物，提供紧急治疗与庇护。</p>
             </div>
-            <div class="stats">
-                <div class="stat-item">
-                    <i class="fas fa-tree"></i>
-                    <h3 class="counter" data-target="2500000">0</h3>
-                    <p>Trees Planted</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-users"></i>
-                    <h3 class="counter" data-target="50000">0</h3>
-                    <p>Active Members</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-globe-americas"></i>
-                    <h3 class="counter" data-target="120">0</h3>
-                    <p>Countries Reached</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-recycle"></i>
-                    <h3 class="counter" data-target="1500">0</h3>
-                    <p>Cleanup Projects</p>
-                </div>
+            <div class="card">
+              <h3>收养与志愿</h3>
+              <p>推广领养代替购买，欢迎志愿者参与日常照料与活动组织。</p>
             </div>
+          </div>
         </div>
-    </section>
 
-    <!-- Initiatives Section -->
-    <section class="initiatives" id="initiatives">
-        <div class="container">
-            <div class="section-title">
-                <h2>Our Initiatives</h2>
-                <p>Discover the key programs and projects we're implementing to protect our planet.</p>
-            </div>
-            <div class="initiatives-grid">
-                <div class="initiative-card">
-                    <div class="initiative-img">
-                        <img src="https://dialogue.earth/content/uploads/2021/04/lessons-from-the-rush-to-reforest-china-dialogue-2400x1599.jpg" alt="Reforestation">
-                    </div>
-                    <div class="initiative-content">
-                        <h3>Global Reforestation</h3>
-                        <p>Planting millions of trees worldwide to restore ecosystems, combat climate change, and protect biodiversity.</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
-                </div>
-                <div class="initiative-card">
-                    <div class="initiative-img">
-                        <img src="https://images.unsplash.com/photo-1621451537084-482c73073a0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Ocean Conservation">
-                    </div>
-                    <div class="initiative-content">
-                        <h3>Ocean Conservation</h3>
-                        <p>Protecting marine ecosystems, reducing plastic pollution, and promoting sustainable fishing practices.</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
-                </div>
-                <div class="initiative-card">
-                    <div class="initiative-img">
-                        <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80" alt="Renewable Energy">
-                    </div>
-                    <div class="initiative-content">
-                        <h3>Renewable Energy</h3>
-                        <p>Promoting solar, wind, and other clean energy sources to reduce dependence on fossil fuels.</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
-                </div>
-            </div>
+        <div class="hero-media" aria-hidden="false">
+          <!-- 使用 Unsplash 随机动物图片（仅示例，无需 API key） -->
+          <img src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?q=80&w=1400&auto=format&fit=crop&crop=faces"
+               alt="温柔看镜头的动物，提醒人们关爱动物" loading="lazy">
         </div>
-    </section>
+      </section>
 
-    <!-- CTA Section -->
-    <section class="cta" id="get-involved">
-        <div class="container">
-            <h2>Join Our Global Movement</h2>
-            <p>Together, we can create a sustainable future for generations to come. Every action counts, no matter how small.</p>
-            <a href="#" class="btn">Become a Member</a>
-        </div>
-    </section>
+      <section id="why" aria-labelledby="why-title">
+        <h2 id="why-title" style="margin-top:18px; font-size:1.2rem;">为什么要爱护动物？</h2>
+        <p style="margin-top:8px; color:#444;">
+          动物是生态系统的重要组成部分。保护动物，既是保护生物多样性，也是体现社会文明与同情心。我们的每一个善举都会带来连锁的积极影响。
+        </p>
 
-    <!-- Footer -->
-    <footer id="contact">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>Green Network</h3>
-                    <p>We are dedicated to protecting our planet through collaborative action, education, and sustainable solutions.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#initiatives">Initiatives</a></li>
-                        <li><a href="#get-involved">Get Involved</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Our Programs</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Reforestation</a></li>
-                        <li><a href="#">Ocean Cleanup</a></li>
-                        <li><a href="#">Wildlife Protection</a></li>
-                        <li><a href="#">Climate Education</a></li>
-                        <li><a href="#">Sustainable Agriculture</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Contact Us</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> Copper Creek Drive, New York</p>
-                    <p><i class="fas fa-phone"></i> +1 (312) 171-0771</p>
-                    <p><i class="fas fa-envelope"></i> support@greennetwork.org</p>
-                </div>
+        <div class="cta-banner">
+          <div>
+            <strong>加入我们：</strong>
+            <div class="stats" style="margin-top:6px;">
+              <div class="stat"><span id="count-saved">0</span> 已救助</div>
+              <div class="stat"><span id="count-vol">0</span> 志愿者</div>
+              <div class="stat"><span id="count-adopt">0</span> 成功收养</div>
             </div>
-            <div class="copyright">
-                <p>&copy; 2025 Green Network. All rights reserved.</p>
-            </div>
+          </div>
+          <div>
+            <button class="btn" id="btn-volunteer">成为志愿者</button>
+          </div>
         </div>
-    </footer>
+      </section>
 
-    <script>
-        // Mobile Menu Toggle
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            document.querySelector('nav ul').classList.toggle('active');
-        });
+      <section id="how" aria-labelledby="how-title">
+        <h2 id="how-title" style="margin-top:18px; font-size:1.15rem;">如何参与</h2>
+        <div class="grid" style="margin-top:10px;">
+          <div class="card">
+            <h3>领养代替购买</h3>
+            <p>选择领养可以给流浪动物一个温暖的家，并减少对商业繁殖的需求。</p>
+          </div>
+          <div class="card">
+            <h3>志愿服务</h3>
+            <p>参与喂养、清洁、社交化训练以及救援行动，都是直接帮助动物的方法。</p>
+          </div>
+          <div class="card">
+            <h3>捐款与物资</h3>
+            <p>捐助医疗费、猫粮、狗粮、保暖物资等，帮助收容所维持日常运作。</p>
+          </div>
+        </div>
+      </section>
 
-        // Counter Animation
-        function animateCounters() {
-            const counters = document.querySelectorAll('.counter');
-            const speed = 200; // The lower the slower
-            
-            counters.forEach(counter => {
-                const target = +counter.getAttribute('data-target');
-                const count = +counter.innerText;
-                
-                const inc = target / speed;
-                
-                if(count < target) {
-                    counter.innerText = Math.ceil(count + inc);
-                    setTimeout(animateCounters, 1);
-                } else {
-                    counter.innerText = target;
-                }
-            });
-        }
+      <section id="adopt" aria-labelledby="adopt-title">
+        <h2 id="adopt-title" style="margin-top:18px; font-size:1.15rem;">待领养动物</h2>
+        <div class="grid" style="margin-top:10px;">
+          <!-- 示例卡片，可替换为真实数据 -->
+          <article class="card" aria-labelledby="pet1-name">
+            <img src="https://images.unsplash.com/photo-1543852786-1cf6624b9987?q=80&w=1200&auto=format&fit=crop&crop=faces" alt="温顺的黄色狗狗" loading="lazy">
+            <h3 id="pet1-name">小黄 • 犬</h3>
+            <p>年龄：2岁 • 性格：活泼友好 • 已绝育</p>
+            <p>小黄喜欢和人玩耍，适合有时间陪伴的家庭。</p>
+            <div style="display:flex; gap:8px; margin-top:8px;">
+              <button class="btn" onclick="openAdoptCard('小黄')">申请领养</button>
+              <button class="btn secondary" onclick="shareItem('小黄')">分享</button>
+            </div>
+          </article>
 
-        // Initialize counters when page loads
-        window.addEventListener('load', animateCounters);
+          <article class="card" aria-labelledby="pet2-name">
+            <img src="https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?q=80&w=1200&auto=format&fit=crop&crop=faces" alt="可爱的猫咪" loading="lazy">
+            <h3 id="pet2-name">小白 • 猫</h3>
+            <p>年龄：1岁 • 性格：温顺好动 • 已做驱虫疫苗</p>
+            <p>小白喜欢安静的午后阳光，适合室内养护。</p>
+            <div style="display:flex; gap:8px; margin-top:8px;">
+              <button class="btn" onclick="openAdoptCard('小白')">申请领养</button>
+              <button class="btn secondary" onclick="shareItem('小白')">分享</button>
+            </div>
+          </article>
+        </div>
+      </section>
 
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    document.querySelector('nav ul').classList.remove('active');
-                }
-            });
-        });
-    </script>
+      <section id="contact" aria-labelledby="contact-title">
+        <h2 id="contact-title" style="margin-top:18px; font-size:1.15rem;">联系我们</h2>
+        <div class="grid" style="margin-top:10px;">
+          <div class="card">
+            <form id="contact-form" onsubmit="handleContact(event)">
+              <label for="name">姓名</label><br>
+              <input id="name" name="name" type="text" required style="width:100%; padding:8px; margin:6px 0 12px; border-radius:6px; border:1px solid #ddd;" />
+
+              <label for="email">邮箱</label><br>
+              <input id="email" name="email" type="email" required style="width:100%; padding:8px; margin:6px 0 12px; border-radius:6px; border:1px solid #ddd;" />
+
+              <label for="message">留言</label><br>
+              <textarea id="message" name="message" rows="4" required style="width:100%; padding:8px; margin:6px 0 12px; border-radius:6px; border:1px solid #ddd;"></textarea>
+
+              <button type="submit" class="btn">发送</button>
+            </form>
+          </div>
+
+          <div class="card">
+            <h3>支持方式</h3>
+            <p>邮箱: help@animals.org</p>
+            <p>电话: 010-1234-5678</p>
+            <p>地址: 示例市 关爱路 100 号</p>
+            <p style="margin-top:10px;">关注我们：<a href="#" aria-label="微博">微博</a> · <a href="#" aria-label="微信">微信</a></p>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        本页面为爱护动物宣传示例。如需用于正式项目，请替换为真实组织信息与后端接口。版权所有 © 关爱动物协会
+      </footer>
+    </div>
+  </main>
+
+  <!-- 通用模态框 -->
+  <div class="modal-backdrop" id="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal" role="document" aria-labelledby="modal-title">
+      <div class="modal-header">
+        <strong id="modal-title">标题</strong>
+        <button class="close-btn" aria-label="关闭" onclick="closeModal()">✕</button>
+      </div>
+      <div id="modal-body">
+        <!-- 动态内容 -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 小交互与示例数据（前端演示用，无后端）
+    document.getElementById('btn-donate').addEventListener('click', function(){
+      openModal('捐助我们', `
+        <p>感谢你的支持！你可以通过以下方式捐助：</p>
+        <ul>
+          <li>银行转账：户名 关爱动物协会，账号 1234-5678-9012</li>
+          <li>支付宝 / 微信捐赠（示例）</li>
+        </ul>
+        <p>注意：本为示例信息，请在正式项目中替换为真实渠道。</p>
+      `);
+    });
+
+    document.getElementById('btn-adopt').addEventListener('click', function(){
+      location.href = '#adopt';
+    });
+
+    document.getElementById('btn-volunteer').addEventListener('click', function(){
+      openModal('成为志愿者', `
+        <p>填写以下信息，我们的工作人员会与您联系：</p>
+        <form onsubmit="submitVolunteer(event)">
+          <input name="vname" placeholder="姓名" required style="width:100%; padding:8px; margin:6px 0; border-radius:6px; border:1px solid #ddd;">
+          <input name="vphone" placeholder="电话" required style="width:100%; padding:8px; margin:6px 0; border-radius:6px; border:1px solid #ddd;">
+          <button type="submit" class="btn">提交</button>
+        </form>
+      `);
+    });
+
+    function openModal(title, html){
+      const backdrop = document.getElementById('modal-backdrop');
+      document.getElementById('modal-title').textContent = title;
+      document.getElementById('modal-body').innerHTML = html;
+      backdrop.style.display = 'flex';
+      backdrop.setAttribute('aria-hidden','false');
+    }
+    function closeModal(){
+      const backdrop = document.getElementById('modal-backdrop');
+      backdrop.style.display = 'none';
+      backdrop.setAttribute('aria-hidden','true');
+    }
+
+    function submitVolunteer(e){
+      e.preventDefault();
+      closeModal();
+      alert('感谢报名！我们会尽快与您联系（示例提示）。');
+    }
+
+    // 简单分享示例（调用浏览器分享或复制）
+    function shareItem(name){
+      const text = `看看这只待领养的动物：${name}，欢迎关注并支持领养代替购买！`;
+      if(navigator.share){
+        navigator.share({ title: '待领养动物', text });
+      } else {
+        navigator.clipboard && navigator.clipboard.writeText(text).then(()=>{
+          alert('已复制到剪贴板，可粘贴分享：\\n' + text);
+        }, ()=> alert('您的浏览器不支持分享功能，请手动复制文案。'));
+      }
+    }
+
+    // 申请领养示例
+    function openAdoptCard(name){
+      openModal('申请领养 — ' + name, `
+        <p>填写您的信息，工作人员将与您联系。</p>
+        <form onsubmit="submitAdopt(event, '${escapeHtml(name)}')">
+          <input name="aname" placeholder="您的姓名" required style="width:100%; padding:8px; margin:6px 0; border-radius:6px; border:1px solid #ddd;">
+          <input name="aphone" placeholder="联系电话" required style="width:100%; padding:8px; margin:6px 0; border-radius:6px; border:1px solid #ddd;">
+          <textarea name="areason" placeholder="为什么想领养？" required style="width:100%; padding:8px; margin:6px 0; border-radius:6px; border:1px solid #ddd;"></textarea>
+          <button type="submit" class="btn">提交申请</button>
+        </form>
+      `);
+    }
+
+    function submitAdopt(e, petName){
+      e.preventDefault();
+      closeModal();
+      alert('已提交领养申请：' + petName + '。工作人员会联系您（示例）。');
+    }
+
+    // 联系表单（前端示范）
+    function handleContact(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      // 在真实项目中将数据发送到后端
+      alert('感谢您的留言，' + name + '！我们会通过 ' + email + ' 与您联系（示例）。');
+      e.target.reset();
+    }
+
+    // 计数动画（示例）
+    const animateCounts = () => {
+      const targets = [
+        {id:'count-saved', to: 128},
+        {id:'count-vol', to: 54},
+        {id:'count-adopt', to: 93}
+      ];
+      targets.forEach(t=>{
+        const el = document.getElementById(t.id);
+        let cur = 0;
+        const step = Math.max(1, Math.round(t.to / 60));
+        const iv = setInterval(()=>{
+          cur += step;
+          if(cur >= t.to) { cur = t.to; clearInterval(iv); }
+          el.textContent = cur;
+        }, 16);
+      });
+    };
+    // 简单视口出现触发（首次加载触发）
+    window.addEventListener('load', animateCounts);
+
+    // 辅助：转义函数
+    function escapeHtml(s){ return String(s).replace(/[&<>"']/g, function(m){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]; }); }
+
+    // 关闭模态：点击背景也能关闭
+    document.getElementById('modal-backdrop').addEventListener('click', function(e){
+      if(e.target === this) closeModal();
+    });
+    // 键盘 Esc 关闭
+    window.addEventListener('keydown', function(e){
+      if(e.key === 'Escape') closeModal();
+    });
+  </script>
 </body>
-
 </html>
